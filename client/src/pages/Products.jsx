@@ -17,17 +17,29 @@ const Products = () => {
         }
         fetchProducts()
     }, [])
-  return <div>
-    <h1> Products </h1>
+
+    const handleDelete = async (id) => {
+        try{
+            
+            await axios.delete(`http://localhost:5000/products/${id}`);
+            window.location.reload()
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+  return (
+  <div>
+    <h1> Inventory </h1>
     <div className='products'>
-        {products.map(product => (
-            <div key={product.id} className='product'>
+        {products.map((product ) => (
+            <div key={product.id} className='product' >
                 <img src={product.img} alt={product.name} />
                 <h2>{product.name}</h2>
                 <h3>${product.cost}</h3>
                 <h3>Expiration: {product.expiration}</h3>
                 <h3>Quantity: {product.quantity}</h3>
-                <button className='delete'>Delete</button>
+                <button className='delete' onClick={() => handleDelete(product.id)}>Delete</button>
                 <button className='update'>Update</button>
             </div>
         ))}
@@ -35,6 +47,7 @@ const Products = () => {
     <button><Link to="/add">Add Product</Link></button>
     
 </div>
+  )
 }
 
 export default Products

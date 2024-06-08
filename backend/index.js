@@ -46,6 +46,20 @@ app.post("/products", (req, res) => {
     });
 });
 
+app.delete("/products/:id", (req, res) => {
+    const productId = req.params.id;
+    console.log("Product ID: ", productId);
+
+
+    const q = "DELETE FROM products WHERE id = ? ";
+    db.query(q, [productId], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send(err);
+        }
+        return res.json(result);
+    });
+});
 
 
 app.listen(5000, () => {
