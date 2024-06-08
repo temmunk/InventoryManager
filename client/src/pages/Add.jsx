@@ -7,10 +7,10 @@ const Add = () => {
 
     const [product, setProduct] = useState({
         name: "",
-        price: "",
+        cost: "",
         quantity: "",
         expiration: null,
-        image: null
+        img: null
     })
 
     const navigate = useNavigate()
@@ -43,10 +43,10 @@ const Add = () => {
     <div className='form'>
         <h1>Add Product</h1>
             <input type="text" placeholder="name" name = "name" onChange={handleChange}/>
-            <input type="text" placeholder="price" name = "price" onChange={handleChange}/>
+            <input type="text" placeholder="cost" name = "cost" onChange={handleChange}/>
             <input type="number" placeholder="quantity" name = "quantity" onChange={handleChange}/>
             <input type="text" placeholder="expiration" name = "expiration" onChange={handleChange}/>
-            <input type="text" placeholder="image" name = "image" onChange={handleChange}/>
+            <input type="text" placeholder="img" name = "img" onChange={handleChange}/>
             <button onClick={handleClick}>Add Product</button>
     </div>
   )

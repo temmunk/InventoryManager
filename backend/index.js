@@ -3,6 +3,9 @@ import mysql from 'mysql2';
 import cors from 'cors';
 
 const app = express();
+// middleware
+app.use(express.json());
+app.use(cors());
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -11,9 +14,6 @@ const db = mysql.createConnection({
     database: 'produce'
 });
 
-// middleware
-app.use(express.json());
-app.use(cors());
 
 
 app.get("/", (req, res) => {
@@ -25,7 +25,8 @@ app.get("/products", (req, res) => {
     const q = "SELECT * FROM products";
     db.query(q, (err, result) => {
         if (err) {
-            res.json(err);
+            console.log(err);
+            return res.json(err);
         }
         return res.json(result);
     });
@@ -34,12 +35,14 @@ app.get("/products", (req, res) => {
 app.post("/products", (req, res) => {
     const q = "INSERT INTO products (`name`, `cost`, `expiration`, `quantity`, `img`) VALUES (?)";
     const values = [req.body.name, req.body.cost, req.body.expiration, req.body.quantity, req.body.img];
-
+    console.log("Values to insert: ", values); // Log the values
     db.query(q, [values], (err, result) => {
         if (err) {
+            console.error("Database error: ", err); // Log the error
             res.json(err);
         }
-        return res.json("Product added successfully");
+        console.log("Insert result: ", result); // Log the result
+        return res.json(result);
     });
 });
 

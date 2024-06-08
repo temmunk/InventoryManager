@@ -27,10 +27,13 @@ const Products = () => {
                 <h3>${product.cost}</h3>
                 <h3>Expiration: {product.expiration}</h3>
                 <h3>Quantity: {product.quantity}</h3>
+                <button className='delete'>Delete</button>
+                <button className='update'>Update</button>
             </div>
         ))}
     </div>
     <button><Link to="/add">Add Product</Link></button>
+    
 </div>
 }
 
