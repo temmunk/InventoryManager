@@ -1,6 +1,8 @@
 import express from 'express';
 import mysql from 'mysql2';
 import cors from 'cors';
+import 'dotenv/config'
+
 
 const app = express();
 // middleware
@@ -8,10 +10,10 @@ app.use(express.json());
 app.use(cors());
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'temuulen1',
-    database: 'produce'
+    host: process.env.host,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database
 });
 
 
