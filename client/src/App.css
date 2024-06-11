@@ -47,3 +47,25 @@ img{
     padding: 5px 10px;
     cursor: pointer;
 }
+
+.form{
+    display:flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+}
+
+.input{
+    width: 250px;
+    padding: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.formButton{
+    border:none;
+    background-color: rgb(241, 162, 162);
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}

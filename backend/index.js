@@ -5,10 +5,11 @@ import 'dotenv/config'
 
 
 const app = express();
-// middleware
+// middleware to handle requests and responses
 app.use(express.json());
 app.use(cors());
 
+// connect to database, use environment variables for security
 const db = mysql.createConnection({
     host: process.env.host,
     user: process.env.user,
@@ -17,12 +18,13 @@ const db = mysql.createConnection({
 });
 
 
-
+// Test connection to database
 app.get("/", (req, res) => {
-    res.json("Hello World");
+    res.json("Hello from the backend!");
 
 });
 
+// Get all products from database and return them as JSON response to the client 
 app.get("/products", (req, res) => {
     const q = "SELECT * FROM products";
     db.query(q, (err, result) => {
@@ -34,6 +36,7 @@ app.get("/products", (req, res) => {
     });
 });
 
+// Add a new product to the database
 app.post("/products", (req, res) => {
     const q = "INSERT INTO products (`name`, `cost`, `expiration`, `quantity`, `img`) VALUES (?)";
     const values = [req.body.name, req.body.cost, req.body.expiration, req.body.quantity, req.body.img];
@@ -47,8 +50,9 @@ app.post("/products", (req, res) => {
         return res.json(result);
     });
 });
-
+// Delete a product from the database by its ID
 app.delete("/products/:id", (req, res) => {
+    // Get the product ID from the request parameters
     const productId = req.params.id;
     console.log("Product ID: ", productId);
 
@@ -63,7 +67,27 @@ app.delete("/products/:id", (req, res) => {
     });
 });
 
+// Update a product in the database by its ID
+app.put("/products/:id", (req, res) => {
+    // Get the product ID from the request parameters
+    const productId = req.params.id;
+    console.log("Product ID: ", productId);
 
+
+    const q = "UPDATE products SET `name` = ?, `cost` = ?, `expiration` = ?, `quantity` = ?, `img` = ? WHERE id = ? ";
+    
+    const values = [req.body.name, req.body.cost, req.body.expiration, req.body.quantity, req.body.img];
+
+    db.query(q, [...values, productId], (err, result) => {
+        if (err) {
+            console.log(err);
+            return res.send(err);
+        }
+        return res.json(result);
+    });
+});
+
+// Start the server
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
 
