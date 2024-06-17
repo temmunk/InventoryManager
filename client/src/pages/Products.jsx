@@ -35,11 +35,12 @@ const Products = () => {
         }
     }
   return (
-  <div>
+  <div data-testid="products">
     <h1> Inventory </h1>  
     <div className='products'>
         {products.map(product  => (                          // map through products and display them
-            <div key={product.id} className='product' >       
+            <div key={product.id} className='product' >
+                <img src={product.img} alt="" />       
                 <h2>{product.name}</h2>                        
                 <h3>${product.cost}</h3>
                 <h3>Expiration: {product.expiration}</h3>
