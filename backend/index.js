@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
 
 // Get all products from database and return them as JSON response to the client 
 app.get("/products", (req, res) => {
+
+    // Query the database to get all products
     const q = "SELECT * FROM products";
     db.query(q, (err, result) => {
         if (err) {
@@ -38,6 +40,8 @@ app.get("/products", (req, res) => {
 
 // Add a new product to the database
 app.post("/products", (req, res) => {
+
+    // Query the database to insert the new product
     const q = "INSERT INTO products (`name`, `cost`, `expiration`, `quantity`, `img`) VALUES (?)";
     const values = [req.body.name, req.body.cost, req.body.expiration, req.body.quantity, req.body.img];
     console.log("Values to insert: ", values); // Log the values
@@ -56,7 +60,7 @@ app.delete("/products/:id", (req, res) => {
     const productId = req.params.id;
     console.log("Product ID: ", productId);
 
-
+    // Query the database to delete the product
     const q = "DELETE FROM products WHERE id = ? ";
     db.query(q, [productId], (err, result) => {
         if (err) {
@@ -73,7 +77,7 @@ app.put("/products/:id", (req, res) => {
     const productId = req.params.id;
     console.log("Product ID: ", productId);
 
-
+    // Query the database to update the product
     const q = "UPDATE products SET `name` = ?, `cost` = ?, `expiration` = ?, `quantity` = ?, `img` = ? WHERE id = ? ";
     
     const values = [req.body.name, req.body.cost, req.body.expiration, req.body.quantity, req.body.img];
