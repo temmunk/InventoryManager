@@ -21,7 +21,7 @@ const Add = () => {
     const handleChange = (e) => {
         setProduct((prev) => ({
             ...prev,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value 
         }))
     }
 

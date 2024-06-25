@@ -8,6 +8,7 @@ import Add from './Add';
 
 // Mock external dependencies
 vi.mock('axios');
+// Mock the useNavigate function from react-router-dom
 const mockNavigate = vi.fn();
 vi.mock('react-router-dom', async () => {
     const actualReactRouterDom = await vi.importActual('react-router-dom'); // Import the actual module
@@ -19,6 +20,7 @@ vi.mock('react-router-dom', async () => {
 // Test the Add component
 describe('Add Component', () => {
   it('submits the form and navigates to the home page', async () => {
+    // Render component with router context
     render(
       <MemoryRouter>
         <Add />
@@ -45,7 +47,7 @@ describe('Add Component', () => {
       img: 'http://example.com/test.jpg',
     });
 
-    // Assert navigate was called correctly
+    // Assert navigate was called correctly, after the form is submitted we should route to the home page
     // Use waitFor to wait for the mockNavigate to be called
     await waitFor(() => {
       expect(mockNavigate).toHaveBeenCalledWith('/');
