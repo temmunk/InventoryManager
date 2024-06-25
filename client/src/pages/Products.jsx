@@ -5,6 +5,20 @@ import { Link } from 'react-router-dom'
 const Products = () => {
     // product state variable array
     const [products, setProducts] = useState([]);
+    const STATUS = {
+        HOVERED: 'hovered',
+        NORMAL: 'normal',
+      }
+
+    const [status, setStatus] = useState(STATUS.NORMAL)
+    
+    const onMouseEnter = () => {
+        setStatus(STATUS.HOVERED)
+      }
+    
+    const onMouseLeave = () => {
+        setStatus(STATUS.NORMAL)
+      }
 
     // fetch products from database and update state
     useEffect(() => {
@@ -35,7 +49,7 @@ const Products = () => {
         }
     }
   return (
-  <div data-testid="products">
+  <div>
     <h1> Inventory </h1>  
     <div className='products'>
         {products.map(product  => (                          // map through products and display them
@@ -50,7 +64,7 @@ const Products = () => {
             </div>
         ))}
     </div>
-    <button><Link to="/add">Add Product</Link></button>
+    <button><Link to="/add" className={status} aria-label={`Link is ${status}`} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>Add Product</Link></button>
     
 </div>
   )

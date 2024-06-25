@@ -46,7 +46,7 @@ const Add = () => {
   return (
     // form for adding a new product
     <div className='form'>
-        <h1>Add Product</h1>
+        <h1>Add</h1>
             <input type="text" placeholder="name" name = "name" onChange={handleChange}/>
             <input type="text" placeholder="cost" name = "cost" onChange={handleChange}/>
             <input type="number" placeholder="quantity" name = "quantity" onChange={handleChange}/>
